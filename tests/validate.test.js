@@ -18,14 +18,26 @@ module.exports = {
 		assert.strictEqual(v.isValid, false);
 		assert.done();
 	},
-	'isValid returns TRUE when required is not true and value is null': function(assert){
+	'isValid returns TRUE when required is not true and value is empty': function(assert){
 		var v = new Validate({name:{pattern:/^.{1,}$/}}, {name:''});
 
 		assert.strictEqual(v.isValid, true);
 		assert.done();
 	},
-	'isValid returns FALSE when required is not true and value is null': function(assert){
+	'isValid returns TRUE when required is not true and value is undefined (not set)': function(assert){
+		var v = new Validate({name:{pattern:/^.{1,}$/}}, {});
+
+		assert.strictEqual(v.isValid, true);
+		assert.done();
+	},
+	'isValid returns FALSE when required is true and value is empty': function(assert){
 		var v = new Validate({name:{pattern:/^.{1,}$/, required:true}}, {name:''});
+
+		assert.strictEqual(v.isValid, false);
+		assert.done();
+	},
+	'isValid returns FALSE when required is true and value is undefined (not set)': function(assert){
+		var v = new Validate({name:{pattern:/^.{1,}$/, required:true}}, {});
 
 		assert.strictEqual(v.isValid, false);
 		assert.done();
